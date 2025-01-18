@@ -1,0 +1,8 @@
+{
+  "name": "@docusign-agent-tools/integrations",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "@docusign-agent-tools/core": "workspace:*"
+  }
+} 
