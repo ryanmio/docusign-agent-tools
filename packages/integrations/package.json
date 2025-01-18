@@ -1,7 +1,10 @@
 {
   "name": "@docusign-agent-tools/integrations",
   "version": "0.0.1",
-  "private": false,
+  "private": true,
+  "publishConfig": {
+    "access": "restricted"
+  },
   "dependencies": {
     "@docusign-agent-tools/core": "workspace:*"
   }
