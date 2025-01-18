@@ -9,12 +9,44 @@ export interface DocusignCredentials {
   accountId: string;
 }
 
+export type Status = 'idle' | 'loading' | 'success' | 'error';
+
+export interface StatusState {
+  status: Status;
+  error?: Error;
+}
+
+export class StatusProvider {
+  private state: StatusState = { status: 'idle' };
+  private listeners: Set<(state: StatusState) => void> = new Set();
+
+  getState(): StatusState {
+    return this.state;
+  }
+
+  setState(newState: Partial<StatusState>) {
+    this.state = { ...this.state, ...newState };
+    this.notify();
+  }
+
+  subscribe(listener: (state: StatusState) => void) {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private notify() {
+    this.listeners.forEach(listener => listener(this.state));
+  }
+}
+
 export class DocusignClient {
   private config: DocusignConfig;
   private credentials?: DocusignCredentials;
+  readonly status: StatusProvider;
 
   constructor(config: DocusignConfig) {
     this.config = config;
+    this.status = new StatusProvider();
   }
 
   setCredentials(credentials: DocusignCredentials) {
