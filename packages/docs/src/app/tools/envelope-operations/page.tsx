@@ -1,4 +1,53 @@
 import { Separator } from "@/components/ui/separator"
+import { CodeBlock } from "@/components/ui/code-block"
+
+const returnTypeExample = `{
+  sentDateTime: string | null
+  completedDateTime: string | null
+  documents: Array<{
+    id: string
+    name: string
+    type: string
+  }>
+  recipients: Array<{
+    name: string
+    email: string
+    status: string
+    signedDateTime?: string
+  }>
+}`
+
+const usageExample = `const toolkit = new DocuSignToolkit(config)
+const details = await toolkit.getEnvelopeDetails("abc-123")
+
+console.log(\`Envelope status: \${details.status}\`)
+console.log(\`Number of documents: \${details.documents.length}\`)`
+
+const listEnvelopesType = `Array<{
+  envelopeId: string
+  status: string
+  sentDateTime: string
+  completedDateTime: string | null
+  subject: string
+  recipients: Array<{
+    name: string
+    email: string
+    status: string
+  }>
+}>`
+
+const listEnvelopesExample = `const toolkit = new DocuSignToolkit(config)
+
+// List all envelopes from the last 30 days
+const fromDate = new Date()
+fromDate.setDate(fromDate.getDate() - 30)
+
+const envelopes = await toolkit.listEnvelopes({
+  fromDate,
+  status: "completed"
+})
+
+console.log(\`Found \${envelopes.length} completed envelopes\`)`
 
 export default function EnvelopeOperationsPage() {
   return (
@@ -26,34 +75,12 @@ export default function EnvelopeOperationsPage() {
 
         <div className="bg-muted rounded-lg p-4 mb-6">
           <h3 className="font-medium mb-2">Returns</h3>
-          <pre className="text-sm overflow-auto">
-{`{
-  sentDateTime: string | null
-  completedDateTime: string | null
-  documents: Array<{
-    id: string
-    name: string
-    type: string
-  }>
-  recipients: Array<{
-    name: string
-    email: string
-    status: string
-    signedDateTime?: string
-  }>
-}`}
-          </pre>
+          <CodeBlock code={returnTypeExample} language="typescript" />
         </div>
 
         <div className="bg-muted rounded-lg p-4">
           <h3 className="font-medium mb-2">Example Usage</h3>
-          <pre className="text-sm overflow-auto">
-{`const toolkit = new DocuSignToolkit(config)
-const details = await toolkit.getEnvelopeDetails("abc-123")
-
-console.log(\`Envelope status: \${details.status}\`)
-console.log(\`Number of documents: \${details.documents.length}\`)`}
-          </pre>
+          <CodeBlock code={usageExample} language="typescript" />
         </div>
       </section>
 
@@ -76,38 +103,12 @@ console.log(\`Number of documents: \${details.documents.length}\`)`}
 
         <div className="bg-muted rounded-lg p-4 mb-6">
           <h3 className="font-medium mb-2">Returns</h3>
-          <pre className="text-sm overflow-auto">
-{`Array<{
-  envelopeId: string
-  status: string
-  sentDateTime: string
-  completedDateTime: string | null
-  subject: string
-  recipients: Array<{
-    name: string
-    email: string
-    status: string
-  }>
-}>`}
-          </pre>
+          <CodeBlock code={listEnvelopesType} language="typescript" />
         </div>
 
         <div className="bg-muted rounded-lg p-4">
           <h3 className="font-medium mb-2">Example Usage</h3>
-          <pre className="text-sm overflow-auto">
-{`const toolkit = new DocuSignToolkit(config)
-
-// List all envelopes from the last 30 days
-const fromDate = new Date()
-fromDate.setDate(fromDate.getDate() - 30)
-
-const envelopes = await toolkit.listEnvelopes({
-  fromDate,
-  status: "completed"
-})
-
-console.log(\`Found \${envelopes.length} completed envelopes\`)`}
-          </pre>
+          <CodeBlock code={listEnvelopesExample} language="typescript" />
         </div>
       </section>
     </div>
