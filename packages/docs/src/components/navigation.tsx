@@ -7,40 +7,66 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 
 const navItems = [
   { name: 'Overview', href: '/' },
-  { name: 'Getting Started', href: '/getting-started' },
+  { 
+    name: 'Getting Started', 
+    href: '/getting-started',
+    subItems: [
+      { name: 'Installation', href: '/getting-started#installation' },
+      { name: 'Quick Start', href: '/getting-started#quick-start' },
+      { name: 'Authentication', href: '/getting-started#authentication' },
+    ]
+  },
+  { 
+    name: 'Tools', 
+    href: '/tools',
+    subItems: [
+      { name: 'Core Envelope Operations', href: '/tools/envelope-operations' },
+      { name: 'Document Operations', href: '/tools/document-operations' },
+      { name: 'Template Operations', href: '/tools/template-operations' },
+      { name: 'Recipient Operations', href: '/tools/recipient-operations' },
+      { name: 'Custom Document Operations', href: '/tools/custom-document-operations' },
+      { name: 'Bulk Operations', href: '/tools/bulk-operations' },
+    ]
+  },
+  { 
+    name: 'Usage Examples', 
+    href: '/usage-examples',
+    subItems: [
+      { name: 'Basic Usage', href: '/usage-examples#basic' },
+      { name: 'Working with Templates', href: '/usage-examples#templates' },
+      { name: 'Custom Documents', href: '/usage-examples#custom-documents' },
+      { name: 'Bulk Operations', href: '/usage-examples#bulk' },
+    ]
+  },
   { 
     name: 'API Reference', 
     href: '/api-reference',
     subItems: [
-      { name: 'Core Envelope Operations', href: '/api-reference#core-envelope-operations' },
-      { name: 'Document Operations', href: '/api-reference#document-operations' },
-      { name: 'Template Operations', href: '/api-reference#template-operations' },
-      { name: 'Recipient Operations', href: '/api-reference#recipient-operations' },
-      { name: 'Custom Document Operations', href: '/api-reference#custom-document-operations' },
-      { name: 'Bulk Operations', href: '/api-reference#bulk-operations' },
+      { name: 'DocuSignToolkit', href: '/api-reference/docusign-toolkit' },
+      { name: 'Types', href: '/api-reference/types' },
+      { name: 'Error Handling', href: '/api-reference/error-handling' },
     ]
   },
-  { name: 'Usage Examples', href: '/usage-examples' },
 ]
 
 export default function Navigation() {
   const pathname = usePathname()
 
   return (
-    <div className="fixed inset-y-0 z-50 flex w-72 flex-col border-r">
+    <div className="fixed inset-y-0 z-50 flex w-72 flex-col border-r bg-background">
       <div className="border-b px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold text-2xl">Docs</span>
+          <span className="font-bold text-2xl">DocuSign Tools</span>
         </Link>
       </div>
       <ScrollArea className="flex-1 py-4">
         <nav className="space-y-1 px-4">
           {navItems.map(item => (
-            <div key={item.href}>
+            <div key={item.href} className="py-1">
               <Button
                 asChild
                 variant="ghost"
-                className={`w-full justify-start ${pathname === item.href ? 'bg-muted' : ''}`}
+                className={`w-full justify-start font-medium ${pathname === item.href ? 'bg-muted' : ''}`}
               >
                 <Link href={item.href}>{item.name}</Link>
               </Button>
@@ -52,7 +78,7 @@ export default function Navigation() {
                       asChild
                       variant="ghost"
                       size="sm"
-                      className={`w-full justify-start ${pathname === subItem.href ? 'bg-muted' : ''}`}
+                      className={`w-full justify-start text-sm text-muted-foreground hover:text-primary ${pathname === subItem.href ? 'bg-muted' : ''}`}
                     >
                       <Link href={subItem.href}>{subItem.name}</Link>
                     </Button>
