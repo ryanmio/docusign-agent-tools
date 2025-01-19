@@ -1,0 +1,107 @@
+---
+title: 'Custom Document Operations'
+description: 'Operations for creating and sending custom documents'
+category: 'api-reference'
+---
+
+# Custom Document Operations
+
+Operations for creating and sending custom documents through DocuSign.
+
+## createCustomEnvelope
+
+Creates a new envelope with a custom document generated from markdown content.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| markdown | `string` | The markdown content to convert to PDF |
+| subject | `string` | Subject line for the email |
+| message | `string` | Message in the email body |
+| recipients | `Array<{ name: string; email: string }>` | Recipients who should sign the document |
+
+### Returns
+
+```typescript
+{
+  envelopeId: string;
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const markdown = `
+# Contract Agreement
+
+This agreement is made between **Company A** and **Company B**.
+
+## Terms and Conditions
+1. First term
+2. Second term
+3. Third term
+
+Signature: \`[sig|req|signer1]\`
+`;
+
+const { envelopeId, error } = await toolkit.createCustomEnvelope({
+  markdown,
+  subject: 'Please sign this agreement',
+  message: 'Please review and sign this agreement.',
+  recipients: [
+    {
+      name: 'John Doe',
+      email: 'john@example.com'
+    }
+  ]
+});
+
+if (error) {
+  console.error('Failed to create custom envelope:', error);
+  return;
+}
+
+console.log('Created envelope:', envelopeId);
+```
+
+## previewCustomDocument
+
+Previews how a markdown document will look when converted to PDF.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| markdown | `string` | The markdown content to preview |
+
+### Returns
+
+```typescript
+{
+  url: string; // Base64 data URL for the PDF preview
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const markdown = `
+# Sample Document
+This is a **preview** of how the document will look.
+`;
+
+const { url, error } = await toolkit.previewCustomDocument({
+  markdown
+});
+
+if (error) {
+  console.error('Failed to preview document:', error);
+  return;
+}
+
+// Use the URL in an iframe or embed component
+console.log('Preview URL:', url);
+``` 

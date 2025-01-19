@@ -1,0 +1,169 @@
+---
+title: 'Template Operations'
+description: 'Operations for working with DocuSign templates'
+category: 'api-reference'
+---
+
+# Template Operations
+
+Operations for working with DocuSign templates, including listing templates, getting template details, and creating envelopes from templates.
+
+## listTemplates
+
+Lists available DocuSign templates.
+
+### Returns
+
+```typescript
+{
+  templates: Array<{
+    templateId: string;
+    name: string;
+    description?: string;
+  }>;
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { templates, error } = await toolkit.listTemplates();
+
+if (error) {
+  console.error('Failed to list templates:', error);
+  return;
+}
+
+console.log('Available templates:', templates);
+```
+
+## previewTemplate
+
+Retrieves detailed information about a DocuSign template.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| templateId | `string` | The ID of the template to preview |
+
+### Returns
+
+```typescript
+{
+  template: {
+    name: string;
+    description?: string;
+    roles: Array<{
+      roleName: string;
+      name?: string;
+      email?: string;
+    }>;
+  };
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { template, error } = await toolkit.previewTemplate('template-123');
+
+if (error) {
+  console.error('Failed to preview template:', error);
+  return;
+}
+
+console.log('Template details:', template);
+```
+
+## getTemplateFields
+
+Retrieves the fields (tabs) available in a template for a specific role.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| templateId | `string` | The ID of the template |
+| roleName | `string` | The role to get fields for |
+
+### Returns
+
+```typescript
+{
+  fields: Array<{
+    type: 'text' | 'number' | 'date' | 'signHere';
+    label: string;
+    value?: string;
+    documentId: string;
+    pageNumber: number;
+    xPosition: number;
+    yPosition: number;
+  }>;
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { fields, error } = await toolkit.getTemplateFields({
+  templateId: 'template-123',
+  roleName: 'Signer 1'
+});
+
+if (error) {
+  console.error('Failed to get template fields:', error);
+  return;
+}
+
+console.log('Template fields:', fields);
+```
+
+## createEnvelopeFromTemplate
+
+Creates a new envelope using a DocuSign template.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| templateId | `string` | The ID of the template to use |
+| emailSubject | `string` | Subject line for the email |
+| emailBlurb | `string` | Message in the email body |
+| recipients | `Array<{ roleName: string; name: string; email: string }>` | Recipients to assign to template roles |
+
+### Returns
+
+```typescript
+{
+  envelopeId: string;
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { envelopeId, error } = await toolkit.createEnvelopeFromTemplate({
+  templateId: 'template-123',
+  emailSubject: 'Please sign this document',
+  emailBlurb: 'Please review and sign this document.',
+  recipients: [
+    {
+      roleName: 'Signer 1',
+      name: 'John Doe',
+      email: 'john@example.com'
+    }
+  ]
+});
+
+if (error) {
+  console.error('Failed to create envelope:', error);
+  return;
+}
+
+console.log('Created envelope:', envelopeId);
+``` 

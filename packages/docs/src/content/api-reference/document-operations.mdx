@@ -1,0 +1,123 @@
+---
+title: 'Document Operations'
+description: 'Operations for working with DocuSign documents and signing sessions'
+category: 'api-reference'
+---
+
+# Document Operations
+
+Operations for working with DocuSign documents, including previewing documents and creating signing sessions.
+
+## previewDocument
+
+Retrieves a document from a DocuSign envelope for preview purposes.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| envelopeId | `string` | The ID of the envelope containing the document |
+| documentId | `string` | The ID of the document to preview |
+
+### Returns
+
+```typescript
+{
+  url: string; // Base64 data URL for the document
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { url, error } = await toolkit.previewDocument({
+  envelopeId: 'abc-123-envelope-id',
+  documentId: 'doc-123'
+});
+
+if (error) {
+  console.error('Failed to preview document:', error);
+  return;
+}
+
+// Use the URL in an iframe or embed component
+console.log('Document preview URL:', url);
+```
+
+## createSigningSession
+
+Creates a signing session for a recipient to sign a DocuSign envelope.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| envelopeId | `string` | The ID of the envelope to create a signing session for |
+| recipient | `{ email: string; name: string; clientUserId?: string }` | The recipient who will sign |
+
+### Returns
+
+```typescript
+{
+  url: string; // URL to redirect the signer to
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { url, error } = await toolkit.createSigningSession({
+  envelopeId: 'abc-123-envelope-id',
+  recipient: {
+    email: 'signer@example.com',
+    name: 'John Doe'
+  }
+});
+
+if (error) {
+  console.error('Failed to create signing session:', error);
+  return;
+}
+
+// Redirect the user to the signing URL
+window.location.href = url;
+```
+
+## sendReminder
+
+Sends a reminder email to the recipients of an envelope.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| envelopeId | `string` | The ID of the envelope to send reminders for |
+| message | `string` | Optional custom message to include in the reminder |
+
+### Returns
+
+```typescript
+{
+  success: boolean;
+  recipientCount: number;
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { success, recipientCount, error } = await toolkit.sendReminder({
+  envelopeId: 'abc-123-envelope-id',
+  message: 'Please sign this document at your earliest convenience.'
+});
+
+if (error) {
+  console.error('Failed to send reminder:', error);
+  return;
+}
+
+console.log(`Reminder sent to ${recipientCount} recipients`);
+``` 

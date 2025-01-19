@@ -1,0 +1,67 @@
+---
+title: 'API Reference'
+description: 'Complete API reference for DocuSign Agent Tools'
+category: 'api-reference'
+---
+
+# API Reference
+
+Welcome to the DocuSign Agent Tools API reference. This section provides detailed documentation for all available operations.
+
+## Available Operations
+
+### [Envelope Operations](/api-reference/envelope-operations)
+Core operations for working with DocuSign envelopes:
+- Get envelope details
+- List envelopes
+- Track envelope status
+
+### [Document Operations](/api-reference/document-operations)
+Operations for working with documents:
+- Preview documents
+- Create signing sessions
+- Send reminders
+
+### [Template Operations](/api-reference/template-operations)
+Operations for working with templates:
+- List templates
+- Preview templates
+- Get template fields
+- Create envelopes from templates
+
+### [Custom Document Operations](/api-reference/custom-document-operations)
+Operations for custom documents:
+- Create custom envelopes
+- Preview custom documents
+
+## Error Handling
+
+All operations follow a consistent error handling pattern:
+
+```typescript
+try {
+  const result = await toolkit.someOperation();
+  if (result.error) {
+    // Handle operation-specific error
+    console.error(result.error);
+    return;
+  }
+  // Use the result
+} catch (error) {
+  // Handle unexpected errors
+  console.error('Unexpected error:', error);
+}
+```
+
+## TypeScript Support
+
+All operations are fully typed with TypeScript. You can import types from the package:
+
+```typescript
+import type { 
+  EnvelopeDetails,
+  TemplateInfo,
+  SigningSession,
+  CustomDocument
+} from '@docusign-agent-tools/core';
+``` 

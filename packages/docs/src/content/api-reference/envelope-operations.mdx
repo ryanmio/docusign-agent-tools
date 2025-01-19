@@ -1,0 +1,105 @@
+---
+title: 'Envelope Operations'
+description: 'Core operations for working with DocuSign envelopes'
+category: 'api-reference'
+---
+
+# Envelope Operations
+
+Core operations for working with DocuSign envelopes, including retrieving envelope details and listing envelopes.
+
+## getEnvelopeDetails
+
+Retrieves detailed information about a DocuSign envelope, including its status, documents, and recipients.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| envelopeId | `string` | The ID of the envelope to retrieve details for |
+
+### Returns
+
+```typescript
+{
+  envelope: {
+    status: string;
+    sentDateTime?: string;
+    completedDateTime?: string;
+    documents: Array<{
+      id: string;
+      name: string;
+      type: string;
+    }>;
+    recipients: Array<{
+      name: string;
+      email: string;
+      status: string;
+      signedDateTime?: string;
+    }>;
+  };
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+const { envelope, error } = await toolkit.getEnvelopeDetails('abc-123-envelope-id');
+
+if (error) {
+  console.error('Failed to get envelope details:', error);
+  return;
+}
+
+console.log('Envelope status:', envelope.status);
+console.log('Documents:', envelope.documents);
+console.log('Recipients:', envelope.recipients);
+```
+
+## listEnvelopes
+
+Lists recent envelopes with optional filtering by status and date range.
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| fromDate | `string` | (Optional) Start date for filtering envelopes (ISO format) |
+| toDate | `string` | (Optional) End date for filtering envelopes (ISO format) |
+| status | `'sent' \| 'delivered' \| 'completed' \| 'declined'` | (Optional) Filter by envelope status |
+
+### Returns
+
+```typescript
+{
+  envelopes: Array<{
+    envelopeId: string;
+    status: string;
+    sentDateTime?: string;
+    completedDateTime?: string;
+    subject: string;
+  }>;
+  error?: Error;
+}
+```
+
+### Example Usage
+
+```typescript
+// List all envelopes from the last 30 days
+const thirtyDaysAgo = new Date();
+thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+const { envelopes, error } = await toolkit.listEnvelopes({
+  fromDate: thirtyDaysAgo.toISOString(),
+  status: 'completed'
+});
+
+if (error) {
+  console.error('Failed to list envelopes:', error);
+  return;
+}
+
+console.log('Found envelopes:', envelopes);
+``` 
