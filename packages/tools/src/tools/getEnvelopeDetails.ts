@@ -11,8 +11,15 @@ export const getEnvelopeDetails = {
   description: 'Get detailed information about a DocuSign envelope including status, recipients, and documents',
   parameters: getEnvelopeDetailsParams,
   execute: async ({ envelopeId, showActions }: z.infer<typeof getEnvelopeDetailsParams>, toolkit: DocuSignToolkit) => {
-    const envelope = await toolkit.getEnvelopeDetails(envelopeId);
+    // Get envelope details
+    const envelope = await toolkit.getEnvelope(envelopeId);
     
+    // Get documents
+    const { envelopeDocuments: documents } = await toolkit.getDocuments(envelopeId);
+    
+    // Get recipients
+    const { signers } = await toolkit.getRecipients(envelopeId);
+
     return {
       state: 'result',
       result: {
@@ -24,7 +31,12 @@ export const getEnvelopeDetails = {
           emailSubject: envelope.emailSubject,
           sentDateTime: envelope.sentDateTime,
           completedDateTime: envelope.completedDateTime,
-          recipients: envelope.recipients?.signers?.map(signer => ({
+          documents: documents?.map(doc => ({
+            id: doc.documentId,
+            name: doc.name,
+            type: doc.type
+          })),
+          recipients: signers?.map(signer => ({
             name: signer.name,
             email: signer.email,
             status: signer.status,

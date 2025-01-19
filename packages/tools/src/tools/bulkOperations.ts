@@ -2,23 +2,22 @@ import { z } from 'zod';
 import { DocuSignToolkit } from '../client';
 
 export const getBulkSendStatusParams = z.object({
-  operationId: z.string().describe('The ID of the bulk operation to display'),
-  showBackButton: z.boolean().optional().describe('Whether to show a back button')
+  batchId: z.string().describe('The ID of the bulk send batch to check')
 });
 
 export const getBulkSendStatus = {
   name: 'getBulkSendStatus',
-  description: 'Display progress and status of a bulk document sending operation',
+  description: 'Check the status of a bulk send operation',
   parameters: getBulkSendStatusParams,
-  execute: async ({ operationId, showBackButton }: z.infer<typeof getBulkSendStatusParams>) => {
+  execute: async ({ batchId }: z.infer<typeof getBulkSendStatusParams>, toolkit: DocuSignToolkit) => {
+    const status = await toolkit.getBulkSendStatus(batchId);
     return {
       state: 'result',
       result: {
-        operationId,
-        showBackButton: showBackButton ?? false,
-        status: 'in_progress',
-        progress: 0,
-        total: 100
+        batchId: status.batchId,
+        status: status.status,
+        completed: status.completed,
+        total: status.total
       }
     };
   }
@@ -26,6 +25,8 @@ export const getBulkSendStatus = {
 
 export const createBulkSendParams = z.object({
   templateId: z.string().describe('The ID of the template to use'),
+  subject: z.string().describe('Email subject for the envelopes'),
+  message: z.string().optional().describe('Optional email message'),
   recipients: z.array(z.object({
     email: z.string().email(),
     name: z.string(),
@@ -36,36 +37,42 @@ export const createBulkSendParams = z.object({
 
 export const createBulkSend = {
   name: 'createBulkSend',
-  description: 'Initialize a bulk send operation',
+  description: 'Create a new bulk send operation',
   parameters: createBulkSendParams,
-  execute: async ({ templateId, recipients }: z.infer<typeof createBulkSendParams>, toolkit: DocuSignToolkit) => {
-    // TODO: Implement actual bulk send creation
+  execute: async ({ templateId, subject, message, recipients }: z.infer<typeof createBulkSendParams>, toolkit: DocuSignToolkit) => {
+    // Create bulk list
+    const listId = await toolkit.createBulkSendList(templateId, recipients);
+
+    // Start bulk send
+    const batchId = await toolkit.startBulkSend(templateId, listId, subject, message);
+
     return {
       state: 'result',
       result: {
-        operationId: 'mock-operation-id',
-        status: 'created',
-        recipientCount: recipients.length
+        batchId,
+        recipientCount: recipients.length,
+        status: 'created'
       }
     };
   }
 };
 
 export const startBulkSendParams = z.object({
-  operationId: z.string().describe('The ID of the bulk operation to start')
+  batchId: z.string().describe('The ID of the bulk send batch to start')
 });
 
 export const startBulkSend = {
   name: 'startBulkSend',
-  description: 'Begin a bulk send operation',
+  description: 'Start a bulk send operation',
   parameters: startBulkSendParams,
-  execute: async ({ operationId }: z.infer<typeof startBulkSendParams>, toolkit: DocuSignToolkit) => {
-    // TODO: Implement actual bulk send start
+  execute: async ({ batchId }: z.infer<typeof startBulkSendParams>, toolkit: DocuSignToolkit) => {
+    const status = await toolkit.getBulkSendStatus(batchId);
     return {
       state: 'result',
       result: {
-        operationId,
-        status: 'started'
+        batchId,
+        status: status.status,
+        message: 'Bulk send operation started'
       }
     };
   }

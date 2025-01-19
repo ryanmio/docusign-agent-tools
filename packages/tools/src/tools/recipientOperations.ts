@@ -26,4 +26,29 @@ export const defineRecipients = {
       }
     };
   }
+};
+
+export const getRecipientsParams = z.object({
+  envelopeId: z.string().describe('The ID of the envelope to get recipients for')
+});
+
+export const getRecipients = {
+  name: 'getRecipients',
+  description: 'Get recipient information for an envelope',
+  parameters: getRecipientsParams,
+  execute: async ({ envelopeId }: z.infer<typeof getRecipientsParams>, toolkit: DocuSignToolkit) => {
+    const { signers } = await toolkit.getRecipients(envelopeId);
+
+    return {
+      state: 'result',
+      result: {
+        recipients: signers?.map(signer => ({
+          name: signer.name,
+          email: signer.email,
+          status: signer.status,
+          signedDateTime: signer.signedDateTime
+        }))
+      }
+    };
+  }
 }; 
