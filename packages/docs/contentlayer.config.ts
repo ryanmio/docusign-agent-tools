@@ -1,9 +1,15 @@
-import { defineDocumentType, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, makeSource } from '@contentlayer/source-files'
+import { ComputedFields } from 'contentlayer/source-files'
 
-interface DocRawData {
-  _raw: {
-    flattenedPath: string
-  }
+const computedFields: ComputedFields = {
+  slug: {
+    type: 'string',
+    resolve: (doc) => doc._raw.flattenedPath,
+  },
+  url: {
+    type: 'string',
+    resolve: (doc) => `/${doc._raw.flattenedPath}`,
+  },
 }
 
 export const Doc = defineDocumentType(() => ({
@@ -15,15 +21,11 @@ export const Doc = defineDocumentType(() => ({
     description: { type: 'string', required: true },
     category: { type: 'string', required: true },
   },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc: DocRawData) => doc._raw.flattenedPath,
-    },
-  },
+  computedFields,
 }))
 
 export default makeSource({
   contentDirPath: 'src/content',
   documentTypes: [Doc],
+  disableImportAliasWarning: true,
 }) 

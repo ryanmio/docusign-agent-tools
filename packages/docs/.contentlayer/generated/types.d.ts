@@ -19,6 +19,7 @@ export type Doc = {
   /** MDX file body */
   body: MDX
   slug: string
+  url: string
 }  
 
 /** Nested types */

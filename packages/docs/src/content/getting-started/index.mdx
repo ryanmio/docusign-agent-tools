@@ -1,0 +1,73 @@
+---
+title: Getting Started
+description: Installation and setup guide for DocuSign Agent Tools
+category: Getting Started
+---
+
+# Getting Started
+
+## Installation
+
+Install the packages:
+
+```bash
+npm install @docusign-agent-tools/core @docusign-agent-tools/react
+# or
+pnpm add @docusign-agent-tools/core @docusign-agent-tools/react
+# or
+yarn add @docusign-agent-tools/core @docusign-agent-tools/react
+```
+
+## Authentication
+
+1. Get your DocuSign credentials:
+   - Account ID
+   - Access Token
+   - Base Path (demo or production)
+
+2. Initialize the toolkit:
+
+```typescript
+const toolkit = new DocuSignToolkit({
+  accountId: process.env.DOCUSIGN_ACCOUNT_ID,
+  accessToken: process.env.DOCUSIGN_ACCESS_TOKEN,
+  basePath: process.env.DOCUSIGN_BASE_PATH
+});
+```
+
+## Usage with React
+
+Wrap your application with the DocuSign provider:
+
+```tsx
+import { DocuSignProvider } from '@docusign-agent-tools/react';
+
+function App() {
+  return (
+    <DocuSignProvider toolkit={toolkit}>
+      <YourApp />
+    </DocuSignProvider>
+  );
+}
+```
+
+Use the hooks in your components:
+
+```tsx
+import { useEnvelopeDetails } from '@docusign-agent-tools/react';
+
+function EnvelopeViewer({ envelopeId }) {
+  const { envelope, loading, error } = useEnvelopeDetails(envelopeId);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <h2>{envelope.emailSubject}</h2>
+      <p>Status: {envelope.status}</p>
+      {/* ... */}
+    </div>
+  );
+}
+``` 
