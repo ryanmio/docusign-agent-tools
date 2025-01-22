@@ -9,15 +9,22 @@ const navItems = [
   { name: 'Overview', href: '/' },
   { name: 'Getting Started', href: '/getting-started' },
   { 
-    name: 'API Reference', 
-    href: '/api-reference',
+    name: 'Agent Tools', 
+    href: '/tools',
     subItems: [
-      { name: 'Core Envelope Operations', href: '/api-reference#core-envelope-operations' },
-      { name: 'Document Operations', href: '/api-reference#document-operations' },
-      { name: 'Template Operations', href: '/api-reference#template-operations' },
-      { name: 'Recipient Operations', href: '/api-reference#recipient-operations' },
-      { name: 'Custom Document Operations', href: '/api-reference#custom-document-operations' },
-      { name: 'Bulk Operations', href: '/api-reference#bulk-operations' },
+      { name: 'Document Tools', href: '/tools/document-operations' },
+      { name: 'Agreement Tools', href: '/tools/envelope-operations' },
+      { name: 'Template Tools', href: '/tools/template-operations' },
+      { name: 'Custom Agreement Tools', href: '/tools/custom-document-operations' },
+    ]
+  },
+  { 
+    name: 'AI Integration', 
+    href: '/ai-integration',
+    subItems: [
+      { name: 'Vercel AI SDK Setup', href: '/ai-integration/setup' },
+      { name: 'Tool Patterns', href: '/ai-integration/patterns' },
+      { name: 'Function Calling', href: '/ai-integration/function-calling' },
     ]
   },
   { name: 'Usage Examples', href: '/usage-examples' },
@@ -30,7 +37,7 @@ export default function Navigation() {
     <div className="fixed inset-y-0 z-50 flex w-72 flex-col border-r">
       <div className="border-b px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold text-2xl">Docs</span>
+          <span className="font-bold text-2xl">Agent Tools</span>
         </Link>
       </div>
       <ScrollArea className="flex-1 py-4">

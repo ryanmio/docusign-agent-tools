@@ -1,13 +1,13 @@
 import './globals.css'
+import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/app-sidebar'
+import Navigation from '@/components/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'Minimal Docs Site',
-  description: 'A gorgeous minimal documentation site using Next.js App Router',
+export const metadata: Metadata = {
+  title: 'DocuSign Agent Tools',
+  description: 'AI-powered tools for building DocuSign integrations',
 }
 
 export default function RootLayout({
@@ -16,13 +16,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarTrigger className="ml-3 mt-3" />
-          <main className="flex-1 overflow-auto p-8 pt-16">{children}</main>
-        </SidebarProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <div className="flex min-h-screen">
+          <Navigation />
+          <main className="flex-1 pl-72">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   )

@@ -52,7 +52,7 @@ export function AppSidebar() {
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">Docs</span>
-                  <span className="">v1.0.0</span>
+                  <span className="">v0.0.1</span>
                 </div>
               </Link>
             </SidebarMenuButton>

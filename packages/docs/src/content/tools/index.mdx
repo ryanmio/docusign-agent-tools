@@ -1,0 +1,70 @@
+---
+title: 'DocuSign Agent Tools'
+description: 'AI-powered tools for building DocuSign integrations'
+category: 'tools'
+---
+
+# DocuSign Agent Tools
+
+DocuSign Agent Tools is a comprehensive toolkit that enables developers to build AI-powered DocuSign applications. These tools are designed to be used with the Vercel AI SDK and provide a standardized way to handle common DocuSign operations in AI applications.
+
+## Available Tools
+
+### Document Tools
+Tools for working with DocuSign documents:
+- Preview documents in various formats
+- Create signing sessions
+- Send reminders to signers
+- Handle document operations through AI function calls
+
+### Agreement Tools
+Tools for managing DocuSign envelopes and agreements:
+- Get agreement details and status
+- List recent agreements
+- Track agreement progress
+- Enable AI to monitor and manage agreements
+
+### Template Tools
+Tools for working with DocuSign templates:
+- List available templates
+- Get template details and fields
+- Create agreements from templates
+- Enable AI to select and populate templates
+
+### Custom Agreement Tools
+Tools for creating and managing custom agreements:
+- Generate agreements from markdown
+- Preview custom documents
+- Create custom signing workflows
+- Enable AI to generate and customize agreements
+
+## AI Integration
+
+All tools are designed to work seamlessly with the Vercel AI SDK:
+- Type-safe function definitions
+- Structured parameter validation
+- Clear error handling patterns
+- Easy integration with AI models
+
+## Example Usage
+
+```typescript
+// Example: AI assistant creating a custom agreement
+const { envelopeId } = await toolkit.createCustomEnvelope({
+  markdown: aiGeneratedContent,
+  subject: 'AI-Generated Agreement',
+  message: 'Please review this custom agreement.',
+  recipients: [
+    {
+      name: 'John Doe',
+      email: 'john@example.com'
+    }
+  ]
+});
+```
+
+Each tool is documented with:
+- Complete parameter definitions
+- Return type specifications
+- Error handling patterns
+- AI integration examples 

@@ -1,0 +1,135 @@
+---
+title: 'Document Tools'
+description: 'AI-powered tools for working with DocuSign documents'
+category: 'tools'
+---
+
+# Document Tools
+
+Tools for AI agents to work with DocuSign documents, enabling preview, signing session creation, and reminder functionality.
+
+## previewDocument
+
+Enables AI to retrieve and display a document from a DocuSign envelope.
+
+### Function Definition
+
+```typescript
+type PreviewDocumentFunction = {
+  name: 'previewDocument',
+  description: 'Retrieves a document from a DocuSign envelope for preview',
+  parameters: {
+    envelopeId: string, // The ID of the envelope containing the document
+    documentId: string, // The ID of the document to preview
+  },
+  returnType: {
+    url: string, // Base64 data URL for the document
+    error?: Error,
+  }
+}
+```
+
+### AI Usage Pattern
+
+```typescript
+// AI assistant helping a user view a document
+const { url, error } = await toolkit.previewDocument({
+  envelopeId: 'abc-123-envelope-id',
+  documentId: 'doc-123'
+});
+
+if (error) {
+  // AI can handle the error and suggest next steps
+  return `I encountered an issue retrieving the document: ${error.message}. 
+          Would you like me to try again or help you with something else?`;
+}
+
+return `I've retrieved the document. You can view it here: ${url}
+        Would you like me to help you analyze its contents?`;
+```
+
+## createSigningSession
+
+Enables AI to create a signing session for a recipient.
+
+### Function Definition
+
+```typescript
+type CreateSigningSessionFunction = {
+  name: 'createSigningSession',
+  description: 'Creates a signing session for a recipient',
+  parameters: {
+    envelopeId: string,
+    recipient: {
+      email: string,
+      name: string,
+      clientUserId?: string
+    }
+  },
+  returnType: {
+    url: string, // URL to redirect the signer to
+    error?: Error
+  }
+}
+```
+
+### AI Usage Pattern
+
+```typescript
+// AI assistant helping set up a signing session
+const { url, error } = await toolkit.createSigningSession({
+  envelopeId: 'abc-123-envelope-id',
+  recipient: {
+    email: 'signer@example.com',
+    name: 'John Doe'
+  }
+});
+
+if (error) {
+  return `I couldn't create the signing session: ${error.message}.
+          Would you like me to verify the recipient information and try again?`;
+}
+
+return `I've created a signing session. You can sign the document here: ${url}
+        Let me know once you've completed signing, and I can help track the status.`;
+```
+
+## sendReminder
+
+Enables AI to send reminder emails to document recipients.
+
+### Function Definition
+
+```typescript
+type SendReminderFunction = {
+  name: 'sendReminder',
+  description: 'Sends a reminder email to envelope recipients',
+  parameters: {
+    envelopeId: string,
+    message?: string
+  },
+  returnType: {
+    success: boolean,
+    recipientCount: number,
+    error?: Error
+  }
+}
+```
+
+### AI Usage Pattern
+
+```typescript
+// AI assistant following up on unsigned documents
+const { success, recipientCount, error } = await toolkit.sendReminder({
+  envelopeId: 'abc-123-envelope-id',
+  message: 'A friendly reminder to sign this important document.'
+});
+
+if (error) {
+  return `I encountered an issue sending the reminder: ${error.message}.
+          Would you like me to try a different approach?`;
+}
+
+return `I've sent a reminder to ${recipientCount} recipients.
+        I can help you track the signing progress or send another reminder later.`;
+``` 
