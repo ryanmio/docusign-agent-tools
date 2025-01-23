@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .ds-input {
+    @apply w-full px-3 py-2 rounded-lg border border-[#130032]/20 focus:border-[#4C00FF] focus:ring-1 focus:ring-[#4C00FF] outline-none;
+  }
+
+  .ds-button {
+    @apply px-4 py-2 rounded-lg bg-[#4C00FF] text-white hover:bg-[#4C00FF]/90 disabled:opacity-50;
+  }
+
+  .ds-button-secondary {
+    @apply px-4 py-2 rounded-lg border border-[#4C00FF] text-[#4C00FF] hover:bg-[#4C00FF]/10 disabled:opacity-50;
+  }
+} 
