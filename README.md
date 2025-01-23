@@ -26,8 +26,11 @@ import { createDocuSignTools } from 'docusign-agent-tools'
 import { 
   getEnvelopeDetails,    // Get envelope and document details
   previewDocument,       // Preview document content
+  createEnvelope,        // Create new envelope from documents
   createSigningSession,  // Generate signing session
-  sendReminder          // Send signing reminders
+  sendReminder,          // Send signing reminders
+  getDocument,          // Download document
+  listDocuments         // List envelope documents
 } from 'docusign-agent-tools/documents'
 
 // Template operations
@@ -66,10 +69,9 @@ import {
 
 // Initialize with your credentials
 const tools = createDocuSignTools({
-  auth: {
-    clientId: process.env.DOCUSIGN_CLIENT_ID,
-    scopes: ['signature']
-  }
+  accessToken: 'your-access-token',
+  accountId: 'your-account-id',
+  baseUrl: 'https://demo.docusign.net/restapi' // optional
 })
 ```
 
