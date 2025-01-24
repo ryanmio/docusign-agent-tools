@@ -2,7 +2,7 @@
 
 2025 is the year AI agents come online. They'll reshape how humans interact with software, data, and each other. But agents can't help humans conduct business without secure access to core commercial infrastructure.
 
-Stripe saw this coming. Their agent toolkit was first because agents need to move money. DocuSign needs to be second because agents need to help humans make agreements.
+Stripe saw this coming. Their agent toolkit was first because agents need to conduct transactions. DocuSign needs to be second because agents need to help humans make agreements.
 
 This toolkit is the bridge. It gives agents secure, constrained access to DocuSign - they can prepare documents, analyze terms, manage deadlines, and handle the mundane parts of agreements. But they can't sign. They'll never sign. They just make it dramatically easier for humans to sign.
 
@@ -74,6 +74,63 @@ const tools = createDocuSignTools({
   baseUrl: 'https://demo.docusign.net/restapi' // optional
 })
 ```
+## Diagrams
+
+
+How Tool Calls Work
+```sql
+User/UI         Chat Agent          Tools                DocuSign/Database
+   |                 |                 |                           |
+   |--Request-------->|                 |                           |
+   |  "Show me        |                 |                           |
+   |  Envelope #123"  |                 |                           |
+   |                 |--Call Tool------>|                           |
+   |                 | "displayDocumentDetails(envelopeId=123)"    |
+   |                 |                 |--Fetch Data--------------->|
+   |                 |                 |                           |
+   |                 |                 |<--Return Data-------------|
+   |                 |<--Result---------|                           |
+   |                 | "Envelope #123 Details"                     |
+   |<--Render--------|                 |                           |
+   | "Display React Component with Data"                           |
+   |                 |                 |                           |
+```
+
+
+React Rendering:
+```sql
++-----------------------+
+|      Chat Window      |
+|-----------------------|
+|  +------------------+ | 
+|  | Message Stream   | |  
+|  |------------------| | 
+|  | User: Show me    | | 
+|  |  Envelope #123   | | 
+|  | AI: Here are the | | 
+|  |  details:        | | 
+|  |                  | | 
+|  | [DocumentDetails]| | <- React Component dynamically rendered
+|  +------------------+ | 
++-----------------------+
+
+Flow:
+1. User Message -> Chat Agent generates a response:
+   - Specification: { toolName: "displayDocumentDetails", envelopeId: 123 }
+
+2. Chat Agent Response ->
+   - Embedded Tool Invocation: "displayDocumentDetails"
+
+3. React Integration:
+   - UI detects `toolName` in the AI message.
+   - Dynamically mounts `DocumentDetailsView` React component.
+
+4. React Component:
+   - Uses `props` such as `envelopeId` to fetch/render data.
+   - Interactivity: User clicks within the component, triggering new tool calls (e.g., resend document).
+
+```
+
 
 ## Status
 
