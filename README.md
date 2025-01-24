@@ -2,8 +2,6 @@
 
 They say 2025 is the year AI agents come online. They'll reshape how humans interact with software, data, and each other. But agents can't help humans conduct business without secure access to core commercial infrastructure.
 
-Stripe saw this coming. Their agent toolkit was first because agents need to conduct transactions. DocuSign needs to be second because agents need to help humans make agreements.
-
 This toolkit is meant to help developers build agents that have secure, constrained access to DocuSign. These tools allow agents to prepare documents, analyze terms, manage deadlines, and handle the mundane parts of agreements. But they can't sign. They just make it dramatically easier for humans to sign.
 
 I built this for a hackathon to demonstrate and expirement with genertive agreement interfaces to free humans from the agreement trap by handling the complexity of modern contracts while we focus on the decisions that matter.
