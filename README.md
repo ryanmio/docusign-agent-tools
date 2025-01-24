@@ -1,12 +1,12 @@
 # docusign-agent-tools
 
-2025 is the year AI agents come online. They'll reshape how humans interact with software, data, and each other. But agents can't help humans conduct business without secure access to core commercial infrastructure.
+They say 2025 is the year AI agents come online. They'll reshape how humans interact with software, data, and each other. But agents can't help humans conduct business without secure access to core commercial infrastructure.
 
 Stripe saw this coming. Their agent toolkit was first because agents need to conduct transactions. DocuSign needs to be second because agents need to help humans make agreements.
 
-This toolkit is the bridge. It gives agents secure, constrained access to DocuSign - they can prepare documents, analyze terms, manage deadlines, and handle the mundane parts of agreements. But they can't sign. They'll never sign. They just make it dramatically easier for humans to sign.
+This toolkit is meant to help developers build agents that have secure, constrained access to DocuSign. These tools allow agents to prepare documents, analyze terms, manage deadlines, and handle the mundane parts of agreements. But they can't sign. They just make it dramatically easier for humans to sign.
 
-We built this during a hackathon because we couldn't shake the conviction that this is how business will work in the near future: Humans making decisions, agents handling everything else. Every commercial process will be supercharged by agents, especially contracts and agreements. They'll free humans from the agreement trap, handling the complexity of modern contracts while we focus on the decisions that matter.
+I built this for a hackathon to demonstrate and expirement with genertive agreement interfaces to free humans from the agreement trap by handling the complexity of modern contracts while we focus on the decisions that matter.
 
 See it working in [Agreement Copilot](https://github.com/ryanmio/docusign-agreement-copilot). Built that first, extracted this toolkit from what worked.
 
