@@ -1,7 +1,7 @@
-# DocuSign Agent Tools Documentation
+# Docusign Agent Tools Documentation
 
 ## Overview
-DocuSign Agent Tools is a toolkit for building AI-powered document automation workflows with DocuSign. It provides a set of tools organized into logical categories, each following the Vercel AI SDK patterns with Zod schema validation.
+Docusign Agent Tools is a toolkit for building AI-powered document automation workflows with Docusign. It provides a set of tools organized into logical categories, each following the Vercel AI SDK patterns with Zod schema validation.
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ yarn add @docusign-agent-tools/core @docusign-agent-tools/react
 ```
 
 ### Quick Start
-1. **Initialize the DocuSign Toolkit**
+1. **Initialize the Docusign Toolkit**
 ```typescript
 import { DocuSignToolkit } from '@docusign-agent-tools/core';
 

@@ -2,7 +2,7 @@ import { allDocs } from 'contentlayer/generated'
 import { MDXContent } from '@/components/mdx-content'
 
 export const metadata = {
-  title: 'Agent Tools | DocuSign Agent Tools',
+  title: 'Agent Tools | Docusign Agent Tools',
   description: 'AI-powered tools for building DocuSign integrations',
 }
 

@@ -1,10 +1,10 @@
-# DocuSign Agent Tools Documentation Structure
+# Docusign Agent Tools Documentation Structure
 
 ## 1. Landing Page
 ```markdown
-# DocuSign Agent Tools
+# Docusign Agent Tools
 
-Build AI-powered document workflows with DocuSign. Simple, powerful, and type-safe.
+Build AI-powered document workflows with Docusign. Simple, powerful, and type-safe.
 
 ## Key Features
 - 🚀 Ready-to-use React components
@@ -27,7 +27,7 @@ npm install @docusign-agent-tools/core @docusign-agent-tools/react
 \```
 
 ## Authentication
-1. Get your DocuSign credentials:
+1. Get your Docusign credentials:
    - Account ID
    - Access Token
    - Base Path (demo or production)
@@ -111,7 +111,7 @@ Tools should be grouped into logical categories:
 # Categories
 
 ## Core Envelope Operations
-Tools for managing DocuSign envelopes
+Tools for managing Docusign envelopes
 - [getEnvelopeDetails](#) - Get envelope information
 - [listEnvelopes](#) - List envelopes
 

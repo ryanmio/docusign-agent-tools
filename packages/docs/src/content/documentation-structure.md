@@ -2,9 +2,9 @@
 
 ## 1. Landing Page
 ```markdown
-# DocuSign Agent Tools
+# Docusign Agent Tools
 
-Build AI-powered document workflows with DocuSign. Simple, powerful, and type-safe.
+Build AI-powered document workflows with Docusign. Simple, powerful, and type-safe.
 
 ## Key Features
 - 🚀 Ready-to-use React components
