@@ -13,6 +13,7 @@ See it working in [Agreement Copilot](https://github.com/ryanmio/docusign-agreem
 ```bash
 npm install docusign-agent-tools
 ```
+*Note: The npm package for docusign-agent-tools is coming soon. Stay tuned for updates!*
 
 ## Usage
 
