@@ -8,6 +8,11 @@ I built this for a hackathon to demonstrate and expirement with genertive agreem
 
 See it working in [Agreement Copilot](https://github.com/ryanmio/docusign-agreement-copilot). Built that first, extracted this toolkit from what worked.
 
+
+## Status
+
+This is a WIP – built during a hackathon.
+
 ## Installation
 
 ```bash
@@ -129,11 +134,6 @@ Flow:
    - Interactivity: User clicks within the component, triggering new tool calls (e.g., resend document).
 
 ```
-
-
-## Status
-
-This is beta software built during a hackathon. It works, but probably has bugs.
 
 ## License
 
